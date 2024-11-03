@@ -3,19 +3,260 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: 34, 197, 94;  /* Default green */
+  --background: 17, 24, 39;
+  --foreground: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Layout & Containers */
+.page-container {
+  @apply min-h-screen bg-gray-900 text-white;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: rgb(17, 24, 39);
+}
+
+.video-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Video Elements */
+.video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotateY(180deg);
+}
+
+.video-overlay {
+  @apply absolute inset-0 bg-gray-900/90 flex items-center justify-center;
+}
+
+.name-tag {
+  @apply absolute top-4 left-4 px-3 py-1.5 bg-gray-900/80 rounded-lg;
+  backdrop-filter: blur(4px);
+}
+
+/* Controls & Buttons */
+.controls-gradient {
+  @apply absolute bottom-0 inset-x-0 p-4;
+  background: linear-gradient(
+    to top,
+    rgba(17, 24, 39, 0.95) 0%,
+    rgba(17, 24, 39, 0.8) 40%,
+    transparent 100%
+  );
+}
+
+.control-button {
+  @apply p-3 rounded-full transition-all duration-200;
+}
+
+.control-button-active {
+  @apply bg-white text-gray-900 hover:bg-gray-100;
+}
+
+.control-button-inactive {
+  @apply bg-red-500/20 text-red-500 hover:bg-red-500/30;
+}
+
+/* AI Avatar & Speaking Indicator */
+.avatar-container {
+  @apply relative w-12 h-12 rounded-full overflow-hidden border-2;
+}
+
+.avatar-glow {
+  box-shadow: 0 0 20px rgba(var(--primary), 0.3);
+}
+
+.speaking-badge {
+  @apply absolute -bottom-2 left-1/2 transform -translate-x-1/2;
+  @apply flex items-center gap-1 px-2 py-0.5 bg-primary/20 rounded-full;
+}
+
+.speaking-dot {
+  @apply w-1.5 h-1.5 bg-primary rounded-full;
+}
+
+/* Animations */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+.animate-wave {
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }
 
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@keyframes wave {
+  50% {
+    transform: scaleY(0.5);
+  }
+}
+
+/* Scrollbars */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgb(var(--background));
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded;
+}
+
+/* Messages & Chat */
+.message-container {
+  @apply max-w-[80%] rounded-lg p-3;
+}
+
+.message-ai {
+  @apply bg-gray-700;
+}
+
+.message-user {
+  @apply bg-primary text-gray-900;
+}
+
+.message-warning {
+  @apply bg-yellow-500/20 text-yellow-400;
+}
+
+.message-error {
+  @apply bg-red-500/20 text-red-400;
+}
+
+.message-timestamp {
+  @apply text-xs opacity-70 mt-1 block;
+}
+
+/* Status Indicators */
+.status-badge {
+  @apply px-2 py-0.5 rounded-full text-xs font-medium;
+}
+
+.status-badge-success {
+  @apply bg-green-500/20 text-green-400;
+}
+
+.status-badge-warning {
+  @apply bg-yellow-500/20 text-yellow-400;
+}
+
+.status-badge-error {
+  @apply bg-red-500/20 text-red-400;
+}
+
+/* Loading States */
+.loading-dots {
+  @apply flex space-x-2;
+}
+
+.loading-dot {
+  @apply w-2 h-2 bg-gray-400 rounded-full;
+}
+
+/* Speech Wave */
+.speech-wave {
+  @apply flex items-center gap-0.5;
+}
+
+.speech-wave-bar {
+  @apply w-0.5 h-3 bg-primary;
+}
+
+/* Interview Controls */
+.interview-controls {
+  @apply flex items-center gap-4;
+}
+
+.control-icon-button {
+  @apply p-2 rounded-lg transition-colors duration-200;
+}
+
+/* Responsiveness */
+@media (min-height: 768px) {
+  .video-container {
+    min-height: 360px;
+  }
+}
+
+@media (max-height: 767px) {
+  .video-container {
+    min-height: 270px;
+  }
+}
+
+/* Base styles */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-gray-900 text-white;
+}
+
+/* Utils */
+.mirror-mode {
+  transform: rotateY(180deg);
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Resize handle styles */
+.resize-handle {
+  @apply w-2 hover:bg-gray-700/50 transition-colors flex items-center justify-center cursor-col-resize;
+}
+
+.resize-handle-line {
+  @apply w-0.5 h-8 bg-gray-600 rounded-full;
+}
+
+/* Panel layout */
+.panel-container {
+  @apply h-full overflow-hidden;
+}
+
+.panel-content {
+  @apply h-full p-4;
 }
