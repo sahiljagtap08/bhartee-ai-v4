@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, Camera, CameraOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { VideoCallProps } from '@/types/interview';
+import Image from 'next/image';
+
 
 export default function VideoCall({
   onTranscript,
@@ -162,12 +164,14 @@ export default function VideoCall({
           >
             <div className="relative">
               <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-primary shadow-glow">
-                <img
-                  src="/interviewer-avatar.png"
-                  alt="AI Interviewer"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+  <Image
+    src="/interviewer-avatar.png"
+    alt="AI Interviewer"
+    width={32}
+    height={32}
+    className="w-full h-full object-cover"
+  />
+</div>
               <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
                 <div className="flex items-center gap-0.5 px-1.5 py-0.5 bg-primary/20 rounded-full">
                   <div className="w-1 h-1 bg-primary rounded-full animate-pulse" />
