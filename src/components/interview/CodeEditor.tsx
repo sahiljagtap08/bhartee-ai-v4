@@ -115,10 +115,14 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onRun }) => {
   });
 
   useEffect(() => {
-    fetchNewProblem();
-  }, []);
+    const loadProblem = async () => {
+      await fetchNewProblem();
+    };
+    loadProblem();
+  }, []);  // We can disable the exhaustive-deps rule here as we want this to run only once
 
-  const fetchNewProblem = async () => {
+  // Move fetchNewProblem inside the component if you need to use hooks
+  const fetchNewProblem = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -141,7 +145,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onRun }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [language]);
 
   const handleLanguageChange = (newLanguage: LanguageKey) => {
     setLanguage(newLanguage);
