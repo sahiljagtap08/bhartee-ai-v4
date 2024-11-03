@@ -18,10 +18,13 @@ export function InterviewSummary({ messages, onClose }: InterviewSummaryProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    generateSummary();
-  }, [messages]);
+    const loadSummary = async () => {
+      await generateSummary();
+    };
+    loadSummary();
+  }, [messages]); // Add messages to dependency array
 
-  const generateSummary = async () => {
+  const generateSummary = useCallback(async () => {
     try {
       const response = await fetch('/api/interview/summary', {
         method: 'POST',
@@ -39,7 +42,7 @@ export function InterviewSummary({ messages, onClose }: InterviewSummaryProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [messages]);
 
   const downloadTranscript = () => {
     const transcript = messages
