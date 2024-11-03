@@ -11,6 +11,7 @@
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
     "@supabase/supabase-js": "^2.39.0",
+    "agora-rtc-sdk-ng": "^4.19.3",
     "@types/node": "^20.8.2",
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
