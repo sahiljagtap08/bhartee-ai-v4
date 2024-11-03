@@ -11,11 +11,7 @@ const nextConfig = {
       };
     }
     return config;
-  },
-  // If you're using experimental features, ensure they're compatible
-  experimental: {
-    appDir: true,
   }
 }
 
-module.exports = nextConfig;
+module.exports = nextConfig
